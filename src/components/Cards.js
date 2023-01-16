@@ -31,7 +31,7 @@ const Cards = (props) => {
   return (
     <>
       <div className="bottom-section">
-        <div class="searchBar">
+        <div className="searchBar">
           <button
             id="searchQuerySubmit"
             type="submit"
