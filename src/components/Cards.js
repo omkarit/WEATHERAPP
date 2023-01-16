@@ -1,12 +1,13 @@
 import React from "react";
 import "./Cards.css";
 import { Card } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FiSearch } from "react-icons/fi";
 import { AiOutlineAim } from "react-icons/ai";
 
 const Cards = (props) => {
   const [input, setInput] = useState("");
+  const inputFeild = useRef(input);
   const sendCityName = (item) => {
     props.getCityName(item);
   };
@@ -18,6 +19,14 @@ const Cards = (props) => {
 
   const searchCustomCity = () => {
     props.getCityName(input);
+    inputFeild.current.value = "";
+  };
+
+  const enterFunc = (e) => {
+    if (e.keyCode === 13) {
+      props.getCityName(input);
+      inputFeild.current.value = "";
+    }
   };
   return (
     <>
@@ -33,10 +42,14 @@ const Cards = (props) => {
             <FiSearch style={{ fontSize: "2rem", color: "#72c5cb" }} />
           </button>
           <input
+            ref={inputFeild}
             id="searchQueryInput"
             type="text"
             onChange={(e) => {
               handleInput(e);
+            }}
+            onKeyDown={(e) => {
+              enterFunc(e);
             }}
             placeholder="Search Location"
           />
